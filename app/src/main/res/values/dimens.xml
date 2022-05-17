@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="line_spacing_0">0dp</dimen>
+    <dimen name="common_height">52dp</dimen>
+    <dimen name="top_button_size">40dp</dimen>
+    <dimen name="favorite_size">25dp</dimen>
+    <dimen name="detail_iamge_size">200dp</dimen>
+    <dimen name="view_margin">10dp</dimen>
+</resources>

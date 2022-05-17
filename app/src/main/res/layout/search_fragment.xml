@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.test.exam.ui.main.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CL_main"
+        android:paddingHorizontal="@dimen/view_margin"
+        android:paddingTop="@dimen/view_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/LL_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:background="@drawable/bg_rect_line"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/view_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/ET_search"
+                style="@style/Medium12"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:background="@null"
+                android:hint="@string/serch_book_hint"
+                android:text="@={vm.liveQueryStr}" />
+
+            <Button
+                style="@style/Bold12"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/top_button_size"
+                android:background="@drawable/bg_rect_fill"
+                android:foreground="?android:selectableItemBackground"
+                android:gravity="center"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:enabled="@{vm.liveQueryStr.length() > 0 ? true : false}"
+                android:onClick="@{() -> vm.onClickSearch()}"
+                android:text="@string/search_button" />
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RV_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:replaceAll="@{vm.liveSearchBookList}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LL_search"
+            tools:listitem="@layout/search_list_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

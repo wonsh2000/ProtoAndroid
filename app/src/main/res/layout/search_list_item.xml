@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="document"
+            type="com.test.exam.data.model.Document" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CL_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:selectableItemBackground"
+        android:background="@drawable/bg_rect_line"
+        android:padding="@dimen/view_margin">
+
+        <!-- 책 이미지 -->
+        <ImageView
+            android:id="@+id/IV_bookimage"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            app:loadUrl="@{document.thumbnail}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- 책이름 -->
+        <TextView
+            android:id="@+id/TV_booktitle"
+            style="@style/Bold12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{document.title}"
+            app:layout_constraintStart_toEndOf="@id/IV_bookimage"
+            app:layout_constraintTop_toTopOf="@id/TV_booktitle"
+            app:layout_constraintEnd_toStartOf="@id/TV_bookdate"
+            tools:text="@string/search_book_title" />
+
+        <!-- 출시일 -->
+        <TextView
+            android:id="@+id/TV_bookdate"
+            style="@style/Medium12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{document.getdateStr()}"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/TV_booktitle"
+            app:layout_constraintEnd_toStartOf="@id/IV_favorite"
+            tools:text="@string/search_book_date" />
+
+        <!-- 책 내용 -->
+        <TextView
+            android:id="@+id/TV_bookcontent"
+            style="@style/Medium12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:maxLines="1"
+            android:layout_marginEnd="5dp"
+            android:ellipsize="end"
+            android:text="@{document.contents}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/IV_favorite"
+            app:layout_constraintStart_toStartOf="@id/TV_booktitle"
+            app:layout_constraintTop_toBottomOf="@id/TV_booktitle" />
+
+        <!-- 책가격 -->
+        <TextView
+            android:id="@+id/TV_bookprice"
+            style="@style/Medium12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{document.getPriceStr()}"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@id/TV_booktitle"
+            app:layout_constraintTop_toBottomOf="@id/TV_bookcontent"
+            tools:text="@string/search_book_price" />
+
+        <ImageView
+            android:id="@+id/IV_favorite"
+            android:layout_width="@dimen/favorite_size"
+            android:layout_height="@dimen/favorite_size"
+            android:gravity="center"
+            android:clickable="false"
+            activated="@{document.isFavorite}"
+            android:src="@drawable/favorite_star"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

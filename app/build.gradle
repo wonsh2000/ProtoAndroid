@@ -9,7 +9,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.test.exam"
+        applicationId "com.wiiv.baseapp"
         minSdk 23
         targetSdk 30
         versionCode 1

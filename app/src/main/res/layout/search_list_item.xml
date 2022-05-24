@@ -9,7 +9,7 @@
 
         <variable
             name="document"
-            type="com.test.exam.data.model.Document" />
+            type="com.wiiv.baseapp.data.model.Document" />
 
     </data>
 

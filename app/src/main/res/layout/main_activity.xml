@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.test.exam.ui.main.viewmodel.SearchViewModel" />
+            type="com.wiiv.baseapp.ui.main.viewmodel.SearchViewModel" />
     </data>
 
     <FrameLayout

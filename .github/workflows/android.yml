@@ -20,7 +20,42 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
+    - name: Cache
+      uses: actions/cache@v3.0.2
+      with:
+        # A list of files, directories, and wildcard patterns to cache and restore
+        path: 
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        # An explicit key for restoring and saving the cache
+        key:
+          ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
+
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+      
+    #파이어베이스를 통해 업로드
+    - name: Upload apk to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      with:
+        appId: ${{ secrets.FIREBASE_APP_ID }}
+        token: ${{ secrets.FIREBASE_TOKEN }}
+        groups: runnerbe
+        file: presentation/build/outputs/universal_apk/release/presentation-release-universal.apk
+        releaseNotesFile: documents/release-note/default-note.txt
+        
+    - name: action-slack
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        author_name: Sloth Backend - dev
+        fields: repo,commit,message,author # action,eventName,ref,workflow,job,took 추가할 수 있음
+        mention: here
+        if_mention: failure,cancelled
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+      if: always() # Pick up events even if the job fails or is canceled.
+    

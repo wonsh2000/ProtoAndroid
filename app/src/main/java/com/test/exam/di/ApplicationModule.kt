@@ -1,5 +1,6 @@
 package com.test.exam.di
 
+import com.test.exam.BuildConfig
 import com.test.exam.data.api.KakaoApi
 import com.test.exam.util.GsonFactory
 import dagger.Module
@@ -15,26 +16,21 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModuleHilt {
+class ApplicationModule  {
 
-    private const val TIME_OUT = 15L
-
-    const val NETWORK_OK_HTTP_CLIENT = "okHttpClient"
-    const val NETWORK_RETROFIT_ADAPTER = "retrofitAdapter"
-    const val BASE_URL = "https://dapi.kakao.com"
+    private val TIME_OUT = 15L
 
     var loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-
-
-    @Singleton
     @Provides
-    @Named(NETWORK_OK_HTTP_CLIENT)
+    fun provideBaseUrl() = BuildConfig.BASE_URL
+
+    @Provides
+    @Singleton
     fun provideOkHttpclient(): okhttp3.OkHttpClient {
         return OkHttpClient.Builder().apply {
             addInterceptor(loggingInterceptor)
@@ -46,10 +42,9 @@ object NetworkModuleHilt {
 
 
     //okhttp
-    @Singleton
     @Provides
-    @Named(NETWORK_RETROFIT_ADAPTER)
-    fun provideRetrofit(@Named(NETWORK_OK_HTTP_CLIENT) okHttpClient: OkHttpClient): Retrofit {
+    @Singleton
+    fun provideRetrofit(BASE_URL: String, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
@@ -58,9 +53,9 @@ object NetworkModuleHilt {
             .build()
     }
 
-    @Singleton
     @Provides
-    fun provideKakaoApi(@Named(NETWORK_RETROFIT_ADAPTER) adaptor: Retrofit) : KakaoApi {
+    @Singleton
+    fun provideKakaoApi(adaptor: Retrofit) : KakaoApi {
         return adaptor.create(KakaoApi::class.java)
     }
 }

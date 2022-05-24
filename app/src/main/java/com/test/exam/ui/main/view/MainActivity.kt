@@ -1,4 +1,4 @@
-package com.test.exam.ui.main
+package com.test.exam.ui.main.view
 
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -6,6 +6,7 @@ import com.test.exam.R
 import com.test.exam.common.ui.activity.BaseDataBindingActivity
 import com.test.exam.common.util.Loading
 import com.test.exam.databinding.MainActivityBinding
+import com.test.exam.ui.main.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

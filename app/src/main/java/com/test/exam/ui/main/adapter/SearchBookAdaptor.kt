@@ -1,4 +1,4 @@
-package com.test.exam.ui.main
+package com.test.exam.ui.main.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

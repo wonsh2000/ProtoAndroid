@@ -1,7 +1,10 @@
-package com.test.exam.ui.main
+package com.test.exam.ui.main.view
 
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.test.exam.R
@@ -9,6 +12,8 @@ import com.test.exam.common.ext.dpToPx
 import com.test.exam.common.ui.fragment.BaseDataBindingFragment
 import com.test.exam.common.ui.view.recyclerview.MarginItemDecoration
 import com.test.exam.databinding.SearchFragmentBinding
+import com.test.exam.ui.main.adapter.SearchBookAdaptor
+import com.test.exam.ui.main.viewmodel.SearchViewModel
 import javax.inject.Inject
 
 
@@ -18,8 +23,7 @@ class SearchListFragment : BaseDataBindingFragment<SearchFragmentBinding>(R.layo
         fun newInstance() = SearchListFragment()
     }
 
-    @Inject
-    lateinit var searchViewModel: SearchViewModel
+    private val searchViewModel: SearchViewModel by activityViewModels()
 
     override fun SearchFragmentBinding.onBind() {
         vm = searchViewModel

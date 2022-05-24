@@ -19,6 +19,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -28,13 +31,75 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
     }
+
+    flavorDimensions "proto"
+
+    productFlavors {
+        create("dev") {
+                dimension "proto"
+                applicationIdSuffix ".dev"
+                versionNameSuffix "-dev"
+
+            resValue "string", "app_name", "proto-DEV"
+            buildConfigField "String", "BASE_URL", "\"https://dapi.kakao.com\""
+
+            copy {
+                from 'src/qa/'
+                include '*.json'
+                into '.'
+            }
+        }
+        create("qa") {
+            dimension "proto"
+            applicationIdSuffix ".qa"
+            versionNameSuffix "-qa"
+
+            resValue "string", "app_name", "proto-QA"
+            buildConfigField "String", "BASE_URL", "\"https://dapi.kakao.com\""
+
+            copy {
+                from 'src/real/'
+                include '*.json'
+                into '.'
+            }
+        }
+
+        create("real") {
+            dimension "proto"
+
+            resValue "string", "app_name", "proto"
+            buildConfigField "String", "BASE_URL", "\"https://dapi.kakao.com\""
+
+            copy {
+                from 'src/dev/'
+                include '*.json'
+                into '.'
+            }
+        }
+
+    }
+
+    android.variantFilter { variant ->
+        if ((variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'dev')
+                || (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'qa')
+                || (variant.buildType.name == 'debug' && variant.getFlavors().get(0).name == 'real')) {
+            variant.setIgnore(true)
+        }
+    }
+
 }
 
 dependencies {
@@ -87,5 +152,11 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:4.12.0"
     implementation "jp.wasabeef:glide-transformations:4.3.0"
 
+    //compose
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.activity:activity-compose:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation 'androidx.activity:activity-compose:1.4.0'
 
 }

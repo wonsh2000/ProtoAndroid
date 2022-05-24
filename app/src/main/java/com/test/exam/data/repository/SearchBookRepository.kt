@@ -3,8 +3,9 @@ package com.test.exam.data.repository
 import com.test.exam.data.api.KakaoApi
 import com.test.exam.data.model.SearchBook
 import io.reactivex.Single
+import javax.inject.Inject
 
-class SearchBookRepository(
+class SearchBookRepository @Inject constructor(
     private val searchBookApi: KakaoApi
 ) {
 

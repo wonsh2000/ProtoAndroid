@@ -1,4 +1,4 @@
-package com.test.exam.ui.main
+package com.test.exam.ui.main.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.test.exam.common.ui.viewmodel.BaseViewModel

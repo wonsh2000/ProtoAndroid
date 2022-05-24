@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "576228076121",
+    "project_id": "baseapp-db418",
+    "storage_bucket": "baseapp-db418.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576228076121:android:a9adefc6a9fd7ed1bb5f48",
+        "android_client_info": {
+          "package_name": "com.wiiv.baseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576228076121-iiflpnv7r29ubj68afav4h0jj123lm0i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0pcYVD6US9ldYaWa6lJ7cMdJnw4hZX-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576228076121-iiflpnv7r29ubj68afav4h0jj123lm0i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

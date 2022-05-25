@@ -35,7 +35,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --stacktrace
       
     #파이어베이스를 통해 업로드
 #     - name: Upload apk to Firebase App Distribution

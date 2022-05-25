@@ -35,7 +35,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build --stacktrace
+      run: ./gradlew assembleDebug --stacktrace
       
     #파이어베이스를 통해 업로드
 #     - name: Upload apk to Firebase App Distribution
@@ -51,7 +51,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: app
-        path: app/build/outputs/apk/release
+        path: app/build/outputs/apk/debug
           
     - name: Download a Build Artifact
       uses: actions/download-artifact@v3.0.0

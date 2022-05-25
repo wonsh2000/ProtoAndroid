@@ -38,15 +38,23 @@ jobs:
       run: ./gradlew build
       
     #파이어베이스를 통해 업로드
-#     - name: Upload apk to Firebase App Distribution
-#       uses: wzieba/Firebase-Distribution-Github-Action@v1
-#       with:
-#         appId: ${{ secrets.FIREBASE_APP_ID }}
-#         token: ${{ secrets.FIREBASE_TOKEN }}
-#         groups: runnerbe
-#         file: presentation/build/outputs/universal_apk/release/presentation-release-universal.apk
-#         releaseNotesFile: documents/release-note/default-note.txt
+    - name: Upload apk to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      with:
+        appId: ${{ secrets.FIREBASE_APP_ID }}
+        token: ${{ secrets.FIREBASE_TOKEN }}
+        groups: runnerbe
+        file: presentation/build/outputs/universal_apk/release/presentation-release-universal.apk
+        releaseNotesFile: documents/release-note/default-note.txt
         
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.0
+      with:
+        # Artifact name
+        name: artifact
+        # Destination path
+#         path: # optional
+    
     - name: action-slack
       uses: 8398a7/action-slack@v3
       with:
